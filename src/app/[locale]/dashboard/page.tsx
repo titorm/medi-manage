@@ -15,26 +15,27 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getTranslations } from "next-intl/server";
 
-const complianceAlerts = [
-  {
-    title: "CFM Update: New Telemedicine Guidelines",
-    description: "New regulations regarding digital security in teleconsultations will be effective starting next month. Review your practices.",
-    date: "2024-08-15",
-  },
-  {
-    title: "LGPD Reminder: Data Consent Forms",
-    description: "Ensure all patient data collection forms have been updated with the latest LGPD consent clauses.",
-    date: "2024-08-10",
-  },
-  {
-    title: "Security Alert: Phishing Attempts",
-    description: "We've detected an increase in phishing emails targeting medical professionals. Be vigilant.",
-    date: "2024-08-05",
-  },
-];
-
 export default async function DashboardPage() {
   const t = await getTranslations("DashboardPage");
+  const tAlerts = await getTranslations("ComplianceAlerts");
+
+  const complianceAlerts = [
+    {
+      title: tAlerts("alert1Title"),
+      description: tAlerts("alert1Desc"),
+      date: "2024-08-15",
+    },
+    {
+      title: tAlerts("alert2Title"),
+      description: tAlerts("alert2Desc"),
+      date: "2024-08-10",
+    },
+    {
+      title: tAlerts("alert3Title"),
+      description: tAlerts("alert3Desc"),
+      date: "2024-08-05",
+    },
+  ];
 
   const quickStats = [
     {

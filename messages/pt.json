@@ -1,5 +1,6 @@
 {
   "HomePage": {
+    "appName": "MediManage",
     "title": "Gestão Inteligente de Consultórios, Simplificada.",
     "description": "O MediManage é uma plataforma completa para profissionais médicos, com ferramentas de IA e recursos robustos de conformidade para otimizar seu fluxo de trabalho.",
     "getStarted": "Começar",
@@ -30,6 +31,10 @@
     "privacy": "Privacidade"
   },
   "DashboardLayout": {
+    "appName": "MediManage",
+    "toggleNotifications": "Toggle notifications",
+    "userAvatarAlt": "@drcarter",
+    "userAvatarFallback": "DC",
     "dashboard": "Painel",
     "schedule": "Agenda",
     "prescriptions": "Prescrições",
@@ -55,8 +60,27 @@
     "complianceMonitorDescription": "Mantenha-se informado sobre importantes atualizações regulatórias e de segurança.",
     "postedOn": "Publicado em: {date}"
   },
+  "ComplianceAlerts": {
+    "alert1Title": "CFM Update: New Telemedicine Guidelines",
+    "alert1Desc": "New regulations regarding digital security in teleconsultations will be effective starting next month. Review your practices.",
+    "alert2Title": "LGPD Reminder: Data Consent Forms",
+    "alert2Desc": "Ensure all patient data collection forms have been updated with the latest LGPD consent clauses.",
+    "alert3Title": "Security Alert: Phishing Attempts",
+    "alert3Desc": "We've detected an increase in phishing emails targeting medical professionals. Be vigilant."
+  },
   "SchedulePage": {
-    "todaysSchedule": "Agenda de Hoje"
+    "todaysSchedule": "Agenda de Hoje",
+    "patient1": "John Doe",
+    "patient2": "Jane Smith",
+    "patient3": "Peter Jones",
+    "patient4": "Mary Johnson",
+    "patient5": "David Williams",
+    "typeTeleconsultation": "Teleconsultation",
+    "typeInPerson": "In-Person",
+    "typeFollowUp": "Follow-up",
+    "statusConfirmed": "Confirmed",
+    "statusPending": "Pending",
+    "statusCanceled": "Canceled"
   },
   "PrescriptionsPage": {
     "title": "Gerador de Prescrição",
@@ -78,7 +102,11 @@
     "placeholderDoctor": "Dra. Ana Souza",
     "placeholderDiagnosis": "ex.: Sinusite bacteriana aguda",
     "placeholderHistory": "ex.: Alérgico a penicilina, histórico de hipertensão.",
-    "initialText": "A prescrição gerada aparecerá aqui."
+    "initialText": "A prescrição gerada aparecerá aqui.",
+    "validationPatientName": "Patient name must be at least 2 characters.",
+    "validationDoctorName": "Doctor name must be at least 2 characters.",
+    "validationDiagnosis": "Diagnosis must be at least 10 characters.",
+    "validationMedicalHistory": "Medical history must be at least 10 characters."
   },
   "FormsPage": {
     "title": "Criador de Formulários de Paciente",
@@ -88,7 +116,14 @@
     "status": "Status",
     "responses": "Respostas",
     "dateCreated": "Data de Criação",
-    "actions": "Ações"
+    "actions": "Ações",
+    "form1Title": "New Patient Intake Form",
+    "form2Title": "Telemedicine Consent Form",
+    "form3Title": "Pre-Consultation Questionnaire",
+    "form4Title": "Patient Feedback Survey",
+    "statusActive": "Active",
+    "statusDraft": "Draft",
+    "statusArchived": "Archived"
   },
   "BillingPage": {
     "title": "Encontre o Plano Certo para Você",
@@ -96,7 +131,26 @@
     "mostPopular": "MAIS POPULAR",
     "perMonth": "/mês",
     "contactSales": "Contatar Vendas",
-    "choosePlan": "Escolher Plano"
+    "choosePlan": "Escolher Plano",
+    "soloPlanName": "Solo Practitioner",
+    "soloPlanPrice": "$49",
+    "soloPlanDesc": "For individual doctors and small practices.",
+    "soloPlanFeature1": "Up to 50 patients",
+    "soloPlanFeature2": "All AI Features",
+    "soloPlanFeature3": "Basic Support",
+    "clinicPlanName": "Clinic",
+    "clinicPlanPrice": "$199",
+    "clinicPlanDesc": "For growing clinics and teams.",
+    "clinicPlanFeature1": "Up to 500 patients",
+    "clinicPlanFeature2": "All AI Features",
+    "clinicPlanFeature3": "Team Collaboration",
+    "clinicPlanFeature4": "Priority Support",
+    "hospitalPlanName": "Hospital",
+    "hospitalPlanDesc": "For large-scale hospital systems.",
+    "hospitalPlanFeature1": "Unlimited Patients",
+    "hospitalPlanFeature2": "Dedicated Account Manager",
+    "hospitalPlanFeature3": "Custom Integrations",
+    "hospitalPlanFeature4": "24/7 Enterprise Support"
   },
   "SummarizerPage": {
     "title": "Resumidor de Histórico do Paciente",
@@ -112,6 +166,10 @@
     "copiedDescription": "Resumo copiado para a área de transferência.",
     "errorTitle": "Erro",
     "errorDescription": "Falha ao gerar o resumo. Por favor, tente novamente.",
-    "initialText": "O resumo gerado aparecerá aqui."
+    "initialText": "O resumo gerado aparecerá aqui.",
+    "validationHistory": "Patient history must be at least 50 characters to summarize."
+  },
+  "Generic": {
+    "close": "Close"
   }
 }

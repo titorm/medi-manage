@@ -47,6 +47,7 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const t = useTranslations("DashboardLayout");
+  const userName = "Dr. Carter"; // This would come from auth context in a real app
 
   const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: t("dashboard") },
@@ -78,7 +79,7 @@ export default function DashboardLayout({
         <SidebarHeader className="items-center justify-center p-4">
           <Logo className="size-8 text-primary group-data-[collapsible=icon]:size-6 transition-all" />
           <h1 className="font-headline text-2xl font-bold text-primary group-data-[collapsible=icon]:hidden">
-            MediManage
+            {t('appName')}
           </h1>
         </SidebarHeader>
         <SidebarContent>
@@ -124,19 +125,19 @@ export default function DashboardLayout({
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="rounded-full">
               <Bell className="h-5 w-5" />
-              <span className="sr-only">Toggle notifications</span>
+              <span className="sr-only">{t('toggleNotifications')}</span>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="https://placehold.co/100x100.png" alt="@drcarter" />
-                    <AvatarFallback>DC</AvatarFallback>
+                    <AvatarImage src="https://placehold.co/100x100.png" alt={t('userAvatarAlt')} />
+                    <AvatarFallback>{t('userAvatarFallback')}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Dr. Carter</DropdownMenuLabel>
+                <DropdownMenuLabel>{userName}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />

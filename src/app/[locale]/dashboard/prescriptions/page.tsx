@@ -29,25 +29,25 @@ import { Bot, Clipboard, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslations } from "next-intl";
 
-const prescriptionFormSchema = z.object({
-  patientName: z.string().min(2, {
-    message: "Patient name must be at least 2 characters.",
-  }),
-  doctorName: z.string().min(2, {
-    message: "Doctor name must be at least 2 characters.",
-  }),
-  diagnosis: z.string().min(10, {
-    message: "Diagnosis must be at least 10 characters.",
-  }),
-  medicalHistory: z.string().min(10, {
-    message: "Medical history must be at least 10 characters.",
-  }),
-});
-
-type PrescriptionFormValues = z.infer<typeof prescriptionFormSchema>;
-
 export default function PrescriptionsPage() {
   const t = useTranslations("PrescriptionsPage");
+
+  const prescriptionFormSchema = z.object({
+    patientName: z.string().min(2, {
+      message: t('validationPatientName'),
+    }),
+    doctorName: z.string().min(2, {
+      message: t('validationDoctorName'),
+    }),
+    diagnosis: z.string().min(10, {
+      message: t('validationDiagnosis'),
+    }),
+    medicalHistory: z.string().min(10, {
+      message: t('validationMedicalHistory'),
+    }),
+  });
+
+  type PrescriptionFormValues = z.infer<typeof prescriptionFormSchema>;
   const [isLoading, setIsLoading] = useState(false);
   const [prescription, setPrescription] = useState("");
   const { toast } = useToast();

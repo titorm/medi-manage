@@ -1,5 +1,5 @@
 import {useTranslations} from 'next-intl';
-import {unstable_setRequestLocale} from 'next-intl/server';
+import {setRequestLocale} from 'next-intl/server';
 import Link from 'next/link';
 import React from 'react';
 import { ArrowRight, Bot, CalendarCheck, FilePlus, ShieldCheck, CreditCard, ClipboardList } from "lucide-react";
@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Logo } from "@/components/icons";
  
 export default function Index({params: {locale}}: {params: {locale: string}}) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('HomePage');
   
   return (
@@ -17,7 +17,7 @@ export default function Index({params: {locale}}: {params: {locale: string}}) {
         <Link href="/" className="flex items-center gap-2" prefetch={false}>
           <Logo className="h-8 w-8 text-primary" />
           <span className="text-2xl font-bold font-headline text-foreground">
-            MediManage
+            {t('appName')}
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">

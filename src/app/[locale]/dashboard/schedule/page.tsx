@@ -14,46 +14,46 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
-const appointments = [
-  {
-    time: "09:00 AM",
-    patient: "John Doe",
-    type: "Teleconsultation",
-    status: "Confirmed",
-    avatar: "https://placehold.co/100x100.png?text=JD",
-  },
-  {
-    time: "10:30 AM",
-    patient: "Jane Smith",
-    type: "In-Person",
-    status: "Confirmed",
-    avatar: "https://placehold.co/100x100.png?text=JS",
-  },
-  {
-    time: "01:00 PM",
-    patient: "Peter Jones",
-    type: "In-Person",
-    status: "Pending",
-    avatar: "https://placehold.co/100x100.png?text=PJ",
-  },
-  {
-    time: "02:30 PM",
-    patient: "Mary Johnson",
-    type: "Teleconsultation",
-    status: "Confirmed",
-    avatar: "https://placehold.co/100x100.png?text=MJ",
-  },
-  {
-    time: "04:00 PM",
-    patient: "David Williams",
-    type: "Follow-up",
-    status: "Canceled",
-    avatar: "https://placehold.co/100x100.png?text=DW",
-  },
-];
-
 export default function SchedulePage() {
   const t = useTranslations("SchedulePage");
+
+  const appointments = [
+    {
+      time: "09:00 AM",
+      patient: t("patient1"),
+      type: t("typeTeleconsultation"),
+      status: t("statusConfirmed"),
+      avatar: "https://placehold.co/100x100.png?text=JD",
+    },
+    {
+      time: "10:30 AM",
+      patient: t("patient2"),
+      type: t("typeInPerson"),
+      status: t("statusConfirmed"),
+      avatar: "https://placehold.co/100x100.png?text=JS",
+    },
+    {
+      time: "01:00 PM",
+      patient: t("patient3"),
+      type: t("typeInPerson"),
+      status: t("statusPending"),
+      avatar: "https://placehold.co/100x100.png?text=PJ",
+    },
+    {
+      time: "02:30 PM",
+      patient: t("patient4"),
+      type: t("typeTeleconsultation"),
+      status: t("statusConfirmed"),
+      avatar: "https://placehold.co/100x100.png?text=MJ",
+    },
+    {
+      time: "04:00 PM",
+      patient: t("patient5"),
+      type: t("typeFollowUp"),
+      status: t("statusCanceled"),
+      avatar: "https://placehold.co/100x100.png?text=DW",
+    },
+  ];
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [formattedDate, setFormattedDate] = useState("");
 
@@ -119,13 +119,13 @@ export default function SchedulePage() {
                       <p className="text-sm text-muted-foreground">{appt.type}</p>
                       <Badge
                         variant={
-                          appt.status === "Confirmed"
+                          appt.status === t("statusConfirmed")
                             ? "default"
-                            : appt.status === "Pending"
+                            : appt.status === t("statusPending")
                             ? "secondary"
                             : "destructive"
                         }
-                        className={appt.status === "Confirmed" ? "bg-accent text-accent-foreground" : ""}
+                        className={appt.status === t("statusConfirmed") ? "bg-accent text-accent-foreground" : ""}
                       >
                         {appt.status}
                       </Badge>

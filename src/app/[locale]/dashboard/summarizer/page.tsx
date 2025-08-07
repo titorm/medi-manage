@@ -28,16 +28,16 @@ import { Bot, Clipboard, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslations } from "next-intl";
 
-const summarizerFormSchema = z.object({
-  patientHistory: z.string().min(50, {
-    message: "Patient history must be at least 50 characters to summarize.",
-  }),
-});
-
-type SummarizerFormValues = z.infer<typeof summarizerFormSchema>;
-
 export default function SummarizerPage() {
   const t = useTranslations("SummarizerPage");
+
+  const summarizerFormSchema = z.object({
+    patientHistory: z.string().min(50, {
+      message: t('validationHistory'),
+    }),
+  });
+
+  type SummarizerFormValues = z.infer<typeof summarizerFormSchema>;
   const [isLoading, setIsLoading] = useState(false);
   const [summary, setSummary] = useState("");
   const { toast } = useToast();

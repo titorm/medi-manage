@@ -18,39 +18,39 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { getTranslations } from "next-intl/server";
 
-const existingForms = [
-  {
-    id: "FRM-001",
-    title: "New Patient Intake Form",
-    status: "Active",
-    created: "2024-07-15",
-    responses: 124,
-  },
-  {
-    id: "FRM-002",
-    title: "Telemedicine Consent Form",
-    status: "Active",
-    created: "2024-06-01",
-    responses: 350,
-  },
-  {
-    id: "FRM-003",
-    title: "Pre-Consultation Questionnaire",
-    status: "Draft",
-    created: "2024-08-01",
-    responses: 0,
-  },
-  {
-    id: "FRM-004",
-    title: "Patient Feedback Survey",
-    status: "Archived",
-    created: "2023-12-20",
-    responses: 88,
-  },
-];
-
 export default async function FormsPage() {
   const t = await getTranslations("FormsPage");
+
+  const existingForms = [
+    {
+      id: "FRM-001",
+      title: t("form1Title"),
+      status: t("statusActive"),
+      created: "2024-07-15",
+      responses: 124,
+    },
+    {
+      id: "FRM-002",
+      title: t("form2Title"),
+      status: t("statusActive"),
+      created: "2024-06-01",
+      responses: 350,
+    },
+    {
+      id: "FRM-003",
+      title: t("form3Title"),
+      status: t("statusDraft"),
+      created: "2024-08-01",
+      responses: 0,
+    },
+    {
+      id: "FRM-004",
+      title: t("form4Title"),
+      status: t("statusArchived"),
+      created: "2023-12-20",
+      responses: 88,
+    },
+  ];
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -83,13 +83,13 @@ export default async function FormsPage() {
                 <TableCell>
                   <Badge
                     variant={
-                      form.status === "Active"
+                      form.status === t("statusActive")
                         ? "default"
-                        : form.status === "Draft"
+                        : form.status === t("statusDraft")
                         ? "secondary"
                         : "outline"
                     }
-                    className={form.status === 'Active' ? 'bg-accent text-accent-foreground' : ''}
+                    className={form.status === t("statusActive") ? 'bg-accent text-accent-foreground' : ''}
                   >
                     {form.status}
                   </Badge>
