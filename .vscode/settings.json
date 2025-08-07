@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [120],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".env": ".env.template",
+    "package.json": "pnpm-*.yaml,.eslintrc.js,.dockerignore,.gitignore,.nvmrc,tailwind.config.ts,postcss.config.mjs,next.config.ts,components.json,tsconfig.json,tsconfig.build.json"
+  }
+}
