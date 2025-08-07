@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import {unstable_setRequestLocale} from 'next-intl/server';
+import {NextIntlClientProvider, useMessages} from 'next-intl';
+import {setRequestLocale} from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: "MediManage",
@@ -15,7 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
   params: {locale: string};
 }>) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
+  const messages = useMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -32,7 +34,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
         <Toaster />
       </body>
     </html>
