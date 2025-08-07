@@ -27,6 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Bot, Clipboard, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 const prescriptionFormSchema = z.object({
   patientName: z.string().min(2, {
@@ -46,6 +47,7 @@ const prescriptionFormSchema = z.object({
 type PrescriptionFormValues = z.infer<typeof prescriptionFormSchema>;
 
 export default function PrescriptionsPage() {
+  const t = useTranslations("PrescriptionsPage");
   const [isLoading, setIsLoading] = useState(false);
   const [prescription, setPrescription] = useState("");
   const { toast } = useToast();
@@ -70,8 +72,8 @@ export default function PrescriptionsPage() {
       console.error("Error generating prescription:", error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to generate prescription. Please try again.",
+        title: t('errorTitle'),
+        description: t('errorDescription'),
       });
     } finally {
       setIsLoading(false);
@@ -81,8 +83,8 @@ export default function PrescriptionsPage() {
   function handleCopy() {
     navigator.clipboard.writeText(prescription);
     toast({
-      title: "Copied!",
-      description: "Prescription copied to clipboard.",
+      title: t('copied'),
+      description: t('copiedDescription'),
     });
   }
 
@@ -90,9 +92,9 @@ export default function PrescriptionsPage() {
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Prescription Generator</CardTitle>
+          <CardTitle className="font-headline">{t('title')}</CardTitle>
           <CardDescription>
-            Fill in the patient's details to generate a CFM-compliant prescription.
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -104,9 +106,9 @@ export default function PrescriptionsPage() {
                   name="patientName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Patient Name</FormLabel>
+                      <FormLabel>{t('patientName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder={t('placeholderPatient')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -117,9 +119,9 @@ export default function PrescriptionsPage() {
                   name="doctorName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Doctor Name</FormLabel>
+                      <FormLabel>{t('doctorName')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Dr. Jane Smith" {...field} />
+                        <Input placeholder={t('placeholderDoctor')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,10 +133,10 @@ export default function PrescriptionsPage() {
                 name="diagnosis"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Diagnosis</FormLabel>
+                    <FormLabel>{t('diagnosis')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., Acute bacterial sinusitis"
+                        placeholder={t('placeholderDiagnosis')}
                         className="resize-none"
                         {...field}
                       />
@@ -148,10 +150,10 @@ export default function PrescriptionsPage() {
                 name="medicalHistory"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Relevant Medical History</FormLabel>
+                    <FormLabel>{t('medicalHistory')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., Allergic to penicillin, history of hypertension."
+                        placeholder={t('placeholderHistory')}
                         className="resize-none"
                         {...field}
                       />
@@ -166,12 +168,12 @@ export default function PrescriptionsPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating...
+                    {t('generatingButton')}
                   </>
                 ) : (
                   <>
                     <Bot className="mr-2 h-4 w-4" />
-                    Generate Prescription
+                    {t('generateButton')}
                   </>
                 )}
               </Button>
@@ -183,13 +185,13 @@ export default function PrescriptionsPage() {
       <Card>
         <CardHeader className="flex flex-row justify-between items-start">
           <div>
-            <CardTitle className="font-headline">Generated Prescription</CardTitle>
-            <CardDescription>Review and copy the AI-generated text.</CardDescription>
+            <CardTitle className="font-headline">{t('generatedTitle')}</CardTitle>
+            <CardDescription>{t('generatedDescription')}</CardDescription>
           </div>
           {prescription && (
             <Button variant="outline" size="sm" onClick={handleCopy}>
               <Clipboard className="h-4 w-4 mr-2" />
-              Copy
+              {t('copy')}
             </Button>
           )}
         </CardHeader>
@@ -203,7 +205,7 @@ export default function PrescriptionsPage() {
             </div>
           ) : (
             <pre className="whitespace-pre-wrap font-body text-sm bg-secondary/50 p-4 rounded-md min-h-[200px]">
-              {prescription || "The generated prescription will appear here."}
+              {prescription || t('initialText')}
             </pre>
           )}
         </CardContent>

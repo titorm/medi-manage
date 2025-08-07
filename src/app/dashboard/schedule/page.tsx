@@ -9,6 +9,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getTranslations } from "next-intl/server";
 
 const appointments = [
   {
@@ -48,7 +49,9 @@ const appointments = [
   },
 ];
 
-export default function SchedulePage() {
+export default async function SchedulePage() {
+  const t = await getTranslations("SchedulePage");
+
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_350px]">
       <Card>
@@ -66,7 +69,7 @@ export default function SchedulePage() {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Today's Schedule</CardTitle>
+          <CardTitle className="font-headline">{t('todaysSchedule')}</CardTitle>
           <CardDescription>
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",

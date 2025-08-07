@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Bot, Clipboard, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 const summarizerFormSchema = z.object({
   patientHistory: z.string().min(50, {
@@ -36,6 +37,7 @@ const summarizerFormSchema = z.object({
 type SummarizerFormValues = z.infer<typeof summarizerFormSchema>;
 
 export default function SummarizerPage() {
+  const t = useTranslations("SummarizerPage");
   const [isLoading, setIsLoading] = useState(false);
   const [summary, setSummary] = useState("");
   const { toast } = useToast();
@@ -57,8 +59,8 @@ export default function SummarizerPage() {
       console.error("Error summarizing history:", error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to generate summary. Please try again.",
+        title: t('errorTitle'),
+        description: t('errorDescription'),
       });
     } finally {
       setIsLoading(false);
@@ -68,8 +70,8 @@ export default function SummarizerPage() {
   function handleCopy() {
     navigator.clipboard.writeText(summary);
     toast({
-      title: "Copied!",
-      description: "Summary copied to clipboard.",
+      title: t('copied'),
+      description: t('copiedDescription'),
     });
   }
 
@@ -77,9 +79,9 @@ export default function SummarizerPage() {
     <div className="grid gap-6 lg:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Patient History Summarizer</CardTitle>
+          <CardTitle className="font-headline">{t('title')}</CardTitle>
           <CardDescription>
-            Paste the patient's full history to generate a concise summary.
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -90,10 +92,10 @@ export default function SummarizerPage() {
                 name="patientHistory"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Patient History</FormLabel>
+                    <FormLabel>{t('historyLabel')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Paste the complete medical history here..."
+                        placeholder={t('placeholder')}
                         className="resize-y min-h-[300px]"
                         {...field}
                       />
@@ -108,12 +110,12 @@ export default function SummarizerPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Summarizing...
+                    {t('generatingButton')}
                   </>
                 ) : (
                   <>
                     <Bot className="mr-2 h-4 w-4" />
-                    Generate Summary
+                    {t('generateButton')}
                   </>
                 )}
               </Button>
@@ -125,13 +127,13 @@ export default function SummarizerPage() {
       <Card>
         <CardHeader className="flex flex-row justify-between items-start">
           <div>
-            <CardTitle className="font-headline">Generated Summary</CardTitle>
-            <CardDescription>A concise overview of the patient's history.</CardDescription>
+            <CardTitle className="font-headline">{t('generatedTitle')}</CardTitle>
+            <CardDescription>{t('generatedDescription')}</CardDescription>
           </div>
           {summary && (
             <Button variant="outline" size="sm" onClick={handleCopy}>
               <Clipboard className="h-4 w-4 mr-2" />
-              Copy
+              {t('copy')}
             </Button>
           )}
         </CardHeader>
@@ -145,7 +147,7 @@ export default function SummarizerPage() {
             </div>
           ) : (
             <div className="prose prose-sm max-w-none text-foreground bg-secondary/50 p-4 rounded-md min-h-[300px]">
-              {summary || "The generated summary will appear here."}
+              {summary || t('initialText')}
             </div>
           )}
         </CardContent>

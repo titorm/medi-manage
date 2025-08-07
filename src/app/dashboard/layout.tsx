@@ -38,24 +38,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/icons";
-
-const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/dashboard/schedule", icon: CalendarDays, label: "Schedule" },
-  { href: "/dashboard/prescriptions", icon: ScrollText, label: "Prescriptions" },
-  { href: "/dashboard/forms", icon: ClipboardList, label: "Patient Forms" },
-  { href: "/dashboard/summarizer", icon: FileText, label: "AI Summarizer" },
-  { href: "/dashboard/billing", icon: CreditCard, label: "Billing" },
-];
-
-const pageTitles: { [key: string]: string } = {
-  "/dashboard": "Dashboard",
-  "/dashboard/schedule": "Smart Scheduling",
-  "/dashboard/prescriptions": "AI-Driven Prescriptions",
-  "/dashboard/forms": "Patient Form Builder",
-  "/dashboard/summarizer": "AI History Summarizer",
-  "/dashboard/billing": "Subscription & Billing",
-};
+import { useTranslations } from "next-intl";
 
 export default function DashboardLayout({
   children,
@@ -63,6 +46,31 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const t = useTranslations("DashboardLayout");
+
+  const navItems = [
+    { href: "/dashboard", icon: LayoutDashboard, label: t("dashboard") },
+    { href: "/dashboard/schedule", icon: CalendarDays, label: t("schedule") },
+    { href: "/dashboard/prescriptions", icon: ScrollText, label: t("prescriptions") },
+    { href: "/dashboard/forms", icon: ClipboardList, label: t("patientForms") },
+    { href: "/dashboard/summarizer", icon: FileText, label: t("aiSummarizer") },
+    { href: "/dashboard/billing", icon: CreditCard, label: t("billing") },
+  ];
+  
+  const pageTitles: { [key: string]: string } = {
+    "/dashboard": t("pageTitleDashboard"),
+    "/dashboard/schedule": t("pageTitleSchedule"),
+    "/dashboard/prescriptions": t("pageTitlePrescriptions"),
+    "/dashboard/forms": t("pageTitleForms"),
+    "/dashboard/summarizer": t("pageTitleSummarizer"),
+    "/dashboard/billing": t("pageTitleBilling"),
+  };
+
+  const getPageTitle = (path: string) => {
+    const cleanPath = path.split('/').slice(0, 3).join('/');
+    return pageTitles[cleanPath] || t("dashboard");
+  }
+
 
   return (
     <SidebarProvider>
@@ -79,7 +87,7 @@ export default function DashboardLayout({
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href}
+                  isActive={pathname.startsWith(item.href)}
                   tooltip={item.label}
                   className="justify-start"
                 >
@@ -95,10 +103,10 @@ export default function DashboardLayout({
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="justify-start" tooltip="Settings">
+              <SidebarMenuButton asChild className="justify-start" tooltip={t('settings')}>
                 <Link href="#">
                   <Settings />
-                  <span>Settings</span>
+                  <span>{t('settings')}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -110,7 +118,7 @@ export default function DashboardLayout({
           <SidebarTrigger className="md:hidden" />
           <div className="flex-1">
             <h1 className="text-lg font-semibold font-headline md:text-2xl">
-              {pageTitles[pathname] || "Dashboard"}
+              {getPageTitle(pathname)}
             </h1>
           </div>
           <div className="flex items-center gap-4">
@@ -132,16 +140,16 @@ export default function DashboardLayout({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
+                  <span>{t('profile')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                  <span>{t('settings')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
+                  <span>{t('logout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

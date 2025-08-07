@@ -4,8 +4,10 @@ import { ArrowRight, Bot, CalendarCheck, FilePlus, ShieldCheck, CreditCard, Clip
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Logo } from "@/components/icons";
+import {getTranslations} from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations('HomePage');
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -21,26 +23,26 @@ export default function Home() {
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >
-            Features
+            {t('features')}
           </Link>
           <Link
             href="#pricing"
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >
-            Pricing
+            {t('pricing')}
           </Link>
           <Link
             href="#"
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >
-            Contact
+            {t('contact')}
           </Link>
         </nav>
         <Button asChild>
           <Link href="/dashboard">
-            Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            {t('getStarted')} <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
       </header>
@@ -51,16 +53,16 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline text-primary">
-                    Intelligent Practice Management, Simplified.
+                    {t('title')}
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    MediManage is an all-in-one platform for medical professionals, featuring AI-powered tools and robust compliance features to streamline your workflow.
+                    {t('description')}
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg">
                     <Link href="/dashboard">
-                      Go to Dashboard
+                      {t('goToDashboard')}
                     </Link>
                   </Button>
                 </div>
@@ -81,23 +83,23 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm">
-                  Key Features
+                  {t('keyFeatures')}
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-                  A Better Workflow for Your Practice
+                  {t('betterWorkflow')}
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our platform is packed with features designed to save you time, improve patient care, and ensure compliance.
+                  {t('featureDescription')}
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none mt-12">
-              <FeatureCard icon={<ClipboardList />} title="Patient Form Builder" description="Create secure, custom patient forms compliant with CFM and LGPD guidelines." />
-              <FeatureCard icon={<CalendarCheck />} title="Smart Scheduling" description="Manage appointments and teleconsultations with an integrated, compliant calendar." />
-              <FeatureCard icon={<Bot />} title="AI-Driven Prescriptions" description="Generate compliant digital prescriptions in seconds with our intelligent AI tool." />
-              <FeatureCard icon={<CreditCard />} title="Subscription Billing" description="Accept payments easily with secure, integrated Stripe billing for your services." />
-              <FeatureCard icon={<FilePlus />} title="AI History Summarizer" description="Automatically get concise summaries of patient histories to speed up consultations." />
-              <FeatureCard icon={<ShieldCheck />} title="Compliance Monitor" description="Stay updated with real-time alerts on relevant medical regulation changes." />
+              <FeatureCard icon={<ClipboardList />} title={t('featureFormBuilderTitle')} description={t('featureFormBuilderDescription')} />
+              <FeatureCard icon={<CalendarCheck />} title={t('featureSchedulingTitle')} description={t('featureSchedulingDescription')} />
+              <FeatureCard icon={<Bot />} title={t('featureAIPrescriptionsTitle')} description={t('featureAIPrescriptionsDescription')} />
+              <FeatureCard icon={<CreditCard />} title={t('featureBillingTitle')} description={t('featureBillingDescription')} />
+              <FeatureCard icon={<FilePlus />} title={t('featureAISummarizerTitle')} description={t('featureAISummarizerDescription')} />
+              <FeatureCard icon={<ShieldCheck />} title={t('featureComplianceTitle')} description={t('featureComplianceDescription')} />
             </div>
           </div>
         </section>
@@ -105,16 +107,16 @@ export default function Home() {
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight font-headline">
-                Pricing for Every Practice Size
+                {t('pricingTitle')}
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Choose the plan that's right for you. All plans include our core features and dedicated support.
+                {t('pricingDescription')}
               </p>
             </div>
             <div className="flex justify-center">
               <Button asChild size="lg">
                 <Link href="/dashboard/billing">
-                  View Plans
+                  {t('viewPlans')}
                 </Link>
               </Button>
             </div>
@@ -123,13 +125,13 @@ export default function Home() {
       </main>
       <footer className="bg-background border-t">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-xs text-muted-foreground">© 2024 MediManage. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground">{t('footerRights')}</p>
           <div className="flex gap-4 mt-4 sm:mt-0">
             <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-              Terms of Service
+              {t('termsOfService')}
             </Link>
             <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-              Privacy
+              {t('privacy')}
             </Link>
           </div>
         </div>

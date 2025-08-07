@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { getTranslations } from "next-intl/server";
 
 const existingForms = [
   {
@@ -48,30 +49,31 @@ const existingForms = [
   },
 ];
 
-export default function FormsPage() {
+export default async function FormsPage() {
+  const t = await getTranslations("FormsPage");
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="font-headline">Patient Form Builder</CardTitle>
+          <CardTitle className="font-headline">{t('title')}</CardTitle>
           <CardDescription>
-            Create, manage, and view responses for your custom patient forms.
+            {t('description')}
           </CardDescription>
         </div>
         <Button>
           <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Form
+          {t('createButton')}
         </Button>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Form Title</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Responses</TableHead>
-              <TableHead>Date Created</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>{t('formTitle')}</TableHead>
+              <TableHead>{t('status')}</TableHead>
+              <TableHead>{t('responses')}</TableHead>
+              <TableHead>{t('dateCreated')}</TableHead>
+              <TableHead className="text-right">{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

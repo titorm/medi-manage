@@ -8,8 +8,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const plans = [
+const plansData = (t: (key: string) => string) => [
   {
     name: "Solo Practitioner",
     price: "$49",
@@ -35,7 +36,7 @@ const plans = [
   },
   {
     name: "Hospital",
-    price: "Contact Us",
+    price: t('contactSales'),
     description: "For large-scale hospital systems.",
     features: [
       "Unlimited Patients",
@@ -47,15 +48,18 @@ const plans = [
   },
 ];
 
-export default function BillingPage() {
+export default async function BillingPage() {
+  const t = await getTranslations("BillingPage");
+  const plans = plansData(t);
+
   return (
     <div className="grid gap-6">
       <div className="text-center">
         <h1 className="text-4xl font-bold font-headline">
-          Find the Right Plan for You
+          {t('title')}
         </h1>
         <p className="text-muted-foreground mt-2">
-          Simple, transparent pricing. No hidden fees.
+          {t('description')}
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -68,7 +72,7 @@ export default function BillingPage() {
           >
             <CardHeader>
               {plan.isPopular && (
-                <div className="text-sm font-semibold text-primary text-center pb-2">MOST POPULAR</div>
+                <div className="text-sm font-semibold text-primary text-center pb-2">{t('mostPopular')}</div>
               )}
               <CardTitle className="font-headline text-center">{plan.name}</CardTitle>
               <CardDescription className="text-center">{plan.description}</CardDescription>
@@ -77,7 +81,7 @@ export default function BillingPage() {
               <div className="text-center mb-6">
                 <span className="text-4xl font-bold">{plan.price}</span>
                 {plan.price.startsWith("$") && (
-                  <span className="text-muted-foreground">/month</span>
+                  <span className="text-muted-foreground">{t('perMonth')}</span>
                 )}
               </div>
               <ul className="space-y-3">
@@ -91,7 +95,7 @@ export default function BillingPage() {
             </CardContent>
             <CardFooter>
               <Button className="w-full" variant={plan.isPopular ? "default" : "outline"}>
-                {plan.price === "Contact Us" ? "Contact Sales" : "Choose Plan"}
+                {plan.price === t('contactSales') ? t('contactSales') : t('choosePlan')}
               </Button>
             </CardFooter>
           </Card>

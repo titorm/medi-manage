@@ -13,30 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
-const quickStats = [
-  {
-    title: "Today's Appointments",
-    value: "12",
-    icon: Calendar,
-    change: "+2",
-    changeType: "increase",
-  },
-  {
-    title: "Pending Prescriptions",
-    value: "4",
-    icon: FileText,
-    change: "-1",
-    changeType: "decrease",
-  },
-  {
-    title: "New Patients",
-    value: "3",
-    icon: Users,
-    change: "+3",
-    changeType: "increase",
-  },
-];
+import { getTranslations } from "next-intl/server";
 
 const complianceAlerts = [
   {
@@ -56,7 +33,30 @@ const complianceAlerts = [
   },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const t = await getTranslations("DashboardPage");
+
+  const quickStats = [
+    {
+      title: t('todaysAppointments'),
+      value: "12",
+      icon: Calendar,
+      change: "+2",
+    },
+    {
+      title: t('pendingPrescriptions'),
+      value: "4",
+      icon: FileText,
+      change: "-1",
+    },
+    {
+      title: t('newPatients'),
+      value: "3",
+      icon: Users,
+      change: "+3",
+    },
+  ];
+
   return (
     <div className="grid gap-6">
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -71,7 +71,7 @@ export default function DashboardPage() {
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
               <p className="text-xs text-muted-foreground">
-                {stat.change} from last day
+                {t('fromLastDay', {change: stat.change})}
               </p>
             </CardContent>
           </Card>
@@ -82,10 +82,10 @@ export default function DashboardPage() {
         <CardHeader>
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-6 w-6 text-primary" />
-            <CardTitle className="font-headline">Regulation Compliance Monitor</CardTitle>
+            <CardTitle className="font-headline">{t('complianceMonitorTitle')}</CardTitle>
           </div>
           <CardDescription>
-            Stay informed about important regulatory and security updates.
+            {t('complianceMonitorDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -96,7 +96,7 @@ export default function DashboardPage() {
               <AlertDescription>
                 <p>{alert.description}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Posted on: {alert.date}
+                  {t('postedOn', {date: alert.date})}
                 </p>
               </AlertDescription>
             </Alert>
