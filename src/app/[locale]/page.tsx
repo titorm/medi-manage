@@ -1,6 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {setRequestLocale} from 'next-intl/server';
-import Link from 'next/link';
+import {Link} from '@/i18n/routing';
 import React from 'react';
 import { ArrowRight, Bot, CalendarCheck, FilePlus, ShieldCheck, CreditCard, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
