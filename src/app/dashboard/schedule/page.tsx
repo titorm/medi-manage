@@ -91,7 +91,7 @@ export default function SchedulePage() {
         <CardHeader>
           <CardTitle className="font-headline">{t('todaysSchedule')}</CardTitle>
           <CardDescription>
-            {formattedDate}
+            {formattedDate || ' '}
           </CardDescription>
         </CardHeader>
         <CardContent>
