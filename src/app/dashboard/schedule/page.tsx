@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -9,7 +11,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 const appointments = [
   {
@@ -49,8 +52,24 @@ const appointments = [
   },
 ];
 
-export default async function SchedulePage() {
-  const t = await getTranslations("SchedulePage");
+export default function SchedulePage() {
+  const t = useTranslations("SchedulePage");
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [formattedDate, setFormattedDate] = useState("");
+
+  useEffect(() => {
+    if (date) {
+      setFormattedDate(
+        new Intl.DateTimeFormat(navigator.language, {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }).format(date)
+      );
+    }
+  }, [date]);
+
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_350px]">
@@ -58,7 +77,8 @@ export default async function SchedulePage() {
         <CardContent className="p-0">
           <Calendar
             mode="single"
-            selected={new Date()}
+            selected={date}
+            onSelect={setDate}
             className="p-3 w-full"
             classNames={{
               day_selected: "bg-primary text-primary-foreground hover:bg-primary/90 focus:bg-primary/90",
@@ -71,12 +91,7 @@ export default async function SchedulePage() {
         <CardHeader>
           <CardTitle className="font-headline">{t('todaysSchedule')}</CardTitle>
           <CardDescription>
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {formattedDate}
           </CardDescription>
         </CardHeader>
         <CardContent>
